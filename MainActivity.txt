@@ -1,0 +1,70 @@
+package com.example.despertador
+
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+
+
+class MainActivity : AppCompatActivity() {
+
+
+    private val sharedPrefFile = "despertador"
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        //IMPORTA LA HORA A LA VARIABLE
+        val texto = findViewById(R.id.TextHora) as TextView
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
+        val sharedIdValue = sharedPreferences.getInt("id_key", 0)
+
+
+        //MUESTRA EL VALOR QUE SE GUARDO ANTERIORMENTE
+        texto.setText(sharedIdValue.toString())
+
+
+
+
+        val boton = findViewById(R.id.BontonActivar) as Button
+        boton.setOnClickListener {
+
+
+            val sharedPreferences: SharedPreferences =
+            this.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
+
+            //Convierte valor-id de la caja de texto y luego guarda el valor ingresado
+            val id: Int = Integer.parseInt(texto.text.toString())
+            val name: String = texto.text.toString()
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putInt("id_key", id)
+            editor.putString("name_key", name)
+            editor.apply()
+            editor.commit()
+
+
+
+
+        }
+
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+}
+
+
